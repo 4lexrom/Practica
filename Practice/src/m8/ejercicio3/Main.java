@@ -74,11 +74,7 @@ public class Main {
 			case 6:
 				textoDescriptivo("Nombre del cliente para asignar cuenta: ");
 				nombreCliente = pedirTexto();
-				/*
-				 * textoDescriptivo("Digita la cuenta que vas asignar: "); numCuenta =
-				 * pedirNumero();
-				 */
-				asignarCuentaCliente(clientes, nombreCliente, cuentas/* , numCuenta */);
+				asignarCuentaCliente(clientes, nombreCliente, cuentas);
 				break;
 			}
 		}
