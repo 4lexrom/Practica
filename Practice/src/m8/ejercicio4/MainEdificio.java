@@ -7,7 +7,7 @@ import java.util.ArrayList;
  * edificio???
  * 2. ¿ Se podria implementar los metodos crear, mostrar y eliminar en
  * la superClase para luego utilizarlos con cualquier subClase???
- * 3. ¿En general como podria generalizar los metodos que hacen lo mismo y se repiten an todas las clases?
+ * 3. ¿Como podria generalizar los metodos que hacen lo mismo y se repiten en todas las clases?
  */
 
 public class MainEdificio {
@@ -29,13 +29,13 @@ public class MainEdificio {
 		cines = cine.crearEdificioCine();
 
 		System.out.print("Numero de asistentes: ");
-		int numAsistentes = edificio.pedirNumero();
+		cine.setNumAsistentes(edificio.pedirNumero());
 
 		System.out.print("Precio entradas: ");
-		int precioEntrdas = edificio.pedirNumero();
-
-		cine.proyectarSession(numAsistentes, precioEntrdas);
+		cine.setPrecioEntrada(edificio.pedirNumero());
+		// Crear un buscador para los datos de "X" cine y muestre la info especifica de
+		// un cine
+		cine.proyectarSession(cine.getNumAsistentes(), cine.getPrecioEntrada());
 		cine.eliminarCine(cines);
-
 	}
 }
