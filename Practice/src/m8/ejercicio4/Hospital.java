@@ -38,7 +38,7 @@ public class Hospital extends Edificio {
 	}
 
 	public void mostrarHospital(ArrayList<Hospital> hospitales) {
-		System.out.println("\t-----Listado de edificios-----");
+		System.out.println("\t-----Listado de hospitales-----");
 		for (Hospital hospital : hospitales) {
 			System.out.println("-" + "Hospital: " + hospital.getNombre());
 		}
@@ -49,8 +49,8 @@ public class Hospital extends Edificio {
 		if (indiceHospital == -1) {
 			System.err.println(("¡El hospital ingresado no existe!"));
 		} else {
-			hospitales.remove(indiceHospital);
-			System.out.println("Se eliminó el edificio " + hospitales.get(indiceHospital).getNombre());
+			System.out.println("Se eliminó el hospital " + hospitales.get(indiceHospital).getNombre()); 
+			hospitales.remove(indiceHospital);			
 		}
 		mostrarHospital(hospitales);
 	}
@@ -64,7 +64,7 @@ public class Hospital extends Edificio {
 		} else {
 			numEnfermos = hospitales.get(indiceHospital).getNumEnfermos();
 			cantRaciones = numEnfermos * RACIONES;
-			System.out.println("Se estan repartiendo " + cantRaciones + " racionnes");
+			System.out.println("Se estan repartiendo " + cantRaciones + " raciones");
 		}
 	}
 

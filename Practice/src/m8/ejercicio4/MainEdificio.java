@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 /* PREGUNTAS
  * 1. ¿Se podria implementar un solo metodo que sirva para buscar cualquier
- * edificio???
+ * edificio??? Respuesta->Si, aplicando metodos genericos
  * 2. ¿ Se podria implementar los metodos crear, mostrar y eliminar en
  * la superClase para luego utilizarlos con cualquier subClase???
  * 3. ¿Como podria generalizar los metodos que hacen lo mismo y se repiten en todas las clases?
@@ -23,14 +23,17 @@ public class MainEdificio {
 
 		hospitales = hospital.crearHospital();
 
-		indiceEdificio = hospital.buscarEdificio(hospitales);
-		hospital.limpiar(hospitales, indiceEdificio);
+		/*indiceEdificio = hospital.buscarEdificio(hospitales);
+		hospital.limpiarEdificio(hospitales, indiceEdificio);
 
 		indiceEdificio = hospital.buscarEdificio(hospitales);
 		hospital.repartirAlmuerzo(hospitales, indiceEdificio);
 
 		indiceEdificio = hospital.buscarEdificio(hospitales);
-		hospital.eliminarHospital(hospitales, indiceEdificio);
+		hospital.eliminarHospital(hospitales, indiceEdificio);*/
+
+		indiceEdificio = hospital.buscarEdificio(hospitales);
+		hospital.consultarCostVigilancia(hospitales, indiceEdificio);
 
 		// Instacia clase Cine
 		/*

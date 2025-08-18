@@ -28,6 +28,44 @@ public class Edificio {
 		return texto;
 	}
 
+	public void consultarCostVigilancia(ArrayList<? extends Edificio> edificios, int indiceEdificio) {
+		int cantVigilantes;
+
+		if (indiceEdificio == -1) {
+			System.err.println("¡El edificio " + edificios.get(indiceEdificio).getNombre() + " no existe!");
+			// Hospital
+		} else if (edificios.get(indiceEdificio) instanceof Hospital) {
+			cantVigilantes = edificios.get(indiceEdificio).getSuperficie() / 1000;
+			System.out.println("Se necesitan " + cantVigilantes + " vigilantes y el coste mensual es de "
+					+ (cantVigilantes * 1300) + "€");
+			// Hotel
+		} else if (edificios.get(indiceEdificio) instanceof Hotel) {
+			cantVigilantes = edificios.get(indiceEdificio).getSuperficie() / 1000;
+			System.out.println("Se necesitan " + cantVigilantes + " vigilantes y el coste mensual es de "
+					+ (cantVigilantes * (1300 + 500)) + "€");
+			// Cine
+		} else {
+			cantVigilantes = edificios.get(indiceEdificio).getSuperficie() / 3000;
+			System.out.println("Se necesitan " + cantVigilantes + " vigilantes y el coste mensual es de "
+					+ (cantVigilantes * 1300) + "€");
+		}
+		/*
+		 * Si es hotel u hospital. Dividir el total de la superficie entre 1000 (Esta
+		 * operacion da la cantidad de vigilantes necesrios). Añadir a los vigilantes de
+		 * hoteles un puls de peligrosidad de 500Euros
+		 */
+
+		/*
+		 * Si es un cine. Dividir el total de la superficie entre 3000 (Esta operacion
+		 * da la cantidad de vigilantes necesrios)
+		 */
+
+		/*
+		 * Para el coste mensual de los vigilantes multiplicar la cantidad de vigilantes
+		 * por 1300Euros
+		 */
+	}
+
 	public int buscarEdificio(ArrayList<? extends Edificio> edificios) {
 		boolean encontrado = false;
 		String edificioConsultado, edificioActual;
@@ -48,7 +86,7 @@ public class Edificio {
 		return indice;
 	}
 
-	public void limpiar(ArrayList<? extends Edificio> edificios, int indiceEdificio) {
+	public void limpiarEdificio(ArrayList<? extends Edificio> edificios, int indiceEdificio) {
 		int tiempoPorM2;
 		int tiempoPorPlanta;
 		int totalTiempoLimpieza;
@@ -56,7 +94,7 @@ public class Edificio {
 		int costePorMes;
 
 		if (indiceEdificio == -1) {
-			System.err.println("El edificio ingresado no existe!");
+			System.err.println("¡El edificio ingresado no existe!");
 		} else {
 			tiempoPorM2 = (int) Math.ceil(edificios.get(indiceEdificio).getSuperficie() / 5); // Devuelve Minutos
 			tiempoPorPlanta = (edificios.get(indiceEdificio).getNumPlantas() * 30) / 60; // Devuelve Minutos
