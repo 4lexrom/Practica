@@ -1,5 +1,6 @@
 package m8.ejercicio4;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Edificio {
@@ -27,20 +28,45 @@ public class Edificio {
 		return texto;
 	}
 
-	public void limpiar() {
+	public int buscarEdificio(ArrayList<? extends Edificio> edificios) {
+		boolean encontrado = false;
+		String edificioConsultado, edificioActual;
+		int indice = -1;
+		int i = 0;
+
+		System.out.print("Nombre del edificio a consultar: ");
+		edificioConsultado = pedirTexto();
+
+		while (!encontrado && i < edificios.size()) {
+			edificioActual = edificios.get(i).getNombre();
+			if (edificioActual.equalsIgnoreCase(edificioConsultado)) {
+				indice = i;
+				encontrado = true;
+			}
+			i++;
+		}
+		return indice;
+	}
+
+	public void limpiar(ArrayList<? extends Edificio> edificios, int indiceEdificio) {
 		int tiempoPorM2;
 		int tiempoPorPlanta;
 		int totalTiempoLimpieza;
 		int costePorMinuto;
 		int costePorMes;
 
-		tiempoPorM2 = (int) Math.ceil(this.superficie / 5); // Devuelve Minutos
-		tiempoPorPlanta = (this.numPlantas * 30) / 60; // Devuelve Minutos
-		totalTiempoLimpieza = (tiempoPorM2 + tiempoPorPlanta); // Devuelve Minutos
-		costePorMinuto = (totalTiempoLimpieza / 60) * 1; // coste por minuto de trabajo
-		costePorMes = costePorMinuto * 30;
+		if (indiceEdificio == -1) {
+			System.err.println("El edificio ingresado no existe!");
+		} else {
+			tiempoPorM2 = (int) Math.ceil(edificios.get(indiceEdificio).getSuperficie() / 5); // Devuelve Minutos
+			tiempoPorPlanta = (edificios.get(indiceEdificio).getNumPlantas() * 30) / 60; // Devuelve Minutos
+			totalTiempoLimpieza = tiempoPorM2 + tiempoPorPlanta; // Devuelve Minutos
+			costePorMinuto = totalTiempoLimpieza * 1; // coste por minuto de trabajo
+			costePorMes = costePorMinuto * 30; // Coste mensual
 
-		System.out.println("Tiempo de duracion de limpieza " + (totalTiempoLimpieza / 60) + "Hrs.");
+			System.out.println("Se necesita " + totalTiempoLimpieza + "Min. para hacer limpieza en el edifico "
+					+ edificios.get(indiceEdificio).getNombre() + " y tiene coste mensual de " + costePorMes + "€");
+		}
 	}
 
 	public String getNombre() {
@@ -53,5 +79,17 @@ public class Edificio {
 
 	public int getSuperficie() {
 		return superficie;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public void setNumPlantas(int numPlantas) {
+		this.numPlantas = numPlantas;
+	}
+
+	public void setSuperficie(int superficie) {
+		this.superficie = superficie;
 	}
 }

@@ -39,57 +39,33 @@ public class Hospital extends Edificio {
 
 	public void mostrarHospital(ArrayList<Hospital> hospitales) {
 		System.out.println("\t-----Listado de edificios-----");
-		for (Edificio hospital : hospitales) {
+		for (Hospital hospital : hospitales) {
 			System.out.println("-" + "Hospital: " + hospital.getNombre());
 		}
 	}
 
-	public void eliminarHospital(ArrayList<Hospital> hospitales) {
+	public void eliminarHospital(ArrayList<Hospital> hospitales, int indiceHospital) {
 
-		System.out.print("Nombre del edificio que deseas borrar: ");
-		String nomEdificio = pedirTexto();
-
-		int indiceEdificio = buscarHospital(hospitales, nomEdificio);
-
-		if (indiceEdificio == -1) {
-			System.err.println(("¡El edificio " + nomEdificio + " no existe!"));
+		if (indiceHospital == -1) {
+			System.err.println(("¡El hospital ingresado no existe!"));
 		} else {
-			hospitales.remove(indiceEdificio);
-			System.out.println("Se eliminó el edificio " + nomEdificio);
+			hospitales.remove(indiceHospital);
+			System.out.println("Se eliminó el edificio " + hospitales.get(indiceHospital).getNombre());
 		}
 		mostrarHospital(hospitales);
 	}
 
-	public void repartirAlmuerzo(ArrayList<Hospital> hospitales) {
+	public void repartirAlmuerzo(ArrayList<Hospital> hospitales, int indiceHospital) {
 		int cantRaciones;
 		int numEnfermos;
 
-		System.out.print("Nombre del hospital a consultar: ");
-		String nomHospital = pedirTexto();
-
-		int indiceHospital = buscarHospital(hospitales, nomHospital);
-
 		if (indiceHospital == -1) {
-			System.err.println("El hospital no existe!");
+			System.err.println("El hospital ingresado no existe!");
 		} else {
 			numEnfermos = hospitales.get(indiceHospital).getNumEnfermos();
 			cantRaciones = numEnfermos * RACIONES;
 			System.out.println("Se estan repartiendo " + cantRaciones + " racionnes");
 		}
-	}
-
-	public int buscarHospital(ArrayList<Hospital> hospitales, String nomEdificio) {
-		boolean encontrado = false;
-		int indice = -1;
-		int i = 0;
-		while (!encontrado && i < hospitales.size()) {
-			if (hospitales.get(i).getNombre().equalsIgnoreCase(nomEdificio)) {
-				indice = i;
-				encontrado = true;
-			}
-			i++;
-		}
-		return indice;
 	}
 
 	public int getNumEnfermos() {

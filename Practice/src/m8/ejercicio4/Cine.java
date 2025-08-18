@@ -19,7 +19,7 @@ public class Cine extends Edificio {
 
 	public ArrayList<Cine> crearEdificioCine() {
 		ArrayList<Cine> cines = new ArrayList<Cine>();
-		int cantCines, numPlantas, superficie, precioEntrada, numAsistentes;
+		int cantCines, numPlantas, superficie;
 		String nombreCine;
 
 		System.out.print("Numero de cines a crear: ");
@@ -86,7 +86,7 @@ public class Cine extends Edificio {
 		if (numAsistentes > 100) {
 			System.out.println("Se supera el aforo maximo permitido");
 		} else {
-			totalRecaudo =     precioEntrada * numAsistentes;
+			totalRecaudo = precioEntrada * numAsistentes;
 			System.out.println("Se han recaudado " + totalRecaudo + " euros");
 		}
 	}
