@@ -23,7 +23,7 @@ public class Hospital extends Edificio {
 		cantHoteles = pedirNumero();
 
 		for (int i = 0; i < cantHoteles; i++) {
-			System.out.println("\t..::Edificio " + (i + 1) + "::..");
+			System.out.println("\t..::Hospital " + (i + 1) + "::..");
 			System.out.print("Nombre del hospital: ");
 			nombre = pedirTexto();
 			System.out.print("Cantidad de plantas: ");
@@ -44,23 +44,33 @@ public class Hospital extends Edificio {
 		}
 	}
 
-	public void eliminarHospital(ArrayList<Hospital> hospitales, int indiceHospital) {
+	public void eliminarHospital(ArrayList<Hospital> hospitales) {
+
+		System.out.print("Nombre del hospital que deseas eliminar: ");
+		String edificioConsulta = pedirTexto();
+
+		int indiceHospital = buscarEdificio(hospitales, edificioConsulta);
 
 		if (indiceHospital == -1) {
 			System.err.println(("¡El hospital ingresado no existe!"));
 		} else {
-			System.out.println("Se eliminó el hospital " + hospitales.get(indiceHospital).getNombre()); 
-			hospitales.remove(indiceHospital);			
+			System.out.println("Se eliminó el hospital " + hospitales.get(indiceHospital).getNombre());
+			hospitales.remove(indiceHospital);
 		}
 		mostrarHospital(hospitales);
 	}
 
-	public void repartirAlmuerzo(ArrayList<Hospital> hospitales, int indiceHospital) {
+	public void repartirAlmuerzo(ArrayList<Hospital> hospitales) {
 		int cantRaciones;
 		int numEnfermos;
 
+		System.out.print("Nombre del hospital que deseas conocer la cantidad de raciones a repartir: ");
+		String edificioConsulta = pedirTexto();
+
+		int indiceHospital = buscarEdificio(hospitales, edificioConsulta);
+
 		if (indiceHospital == -1) {
-			System.err.println("El hospital ingresado no existe!");
+			System.err.println("¡El hospital ingresado no existe!");
 		} else {
 			numEnfermos = hospitales.get(indiceHospital).getNumEnfermos();
 			cantRaciones = numEnfermos * RACIONES;

@@ -28,11 +28,16 @@ public class Edificio {
 		return texto;
 	}
 
-	public void consultarCostVigilancia(ArrayList<? extends Edificio> edificios, int indiceEdificio) {
+	public void consultarCostVigilancia(ArrayList<? extends Edificio> edificios) {
 		int cantVigilantes;
 
+		System.out.print("Nombre del edificio que deseas conocer el coste de vigilancia: ");
+		String edificioConsulta = pedirTexto();
+
+		int indiceEdificio = buscarEdificio(edificios, edificioConsulta);
+
 		if (indiceEdificio == -1) {
-			System.err.println("¡El edificio " + edificios.get(indiceEdificio).getNombre() + " no existe!");
+			System.err.println("¡El edificio ingresado no existe!");
 			// Hospital
 		} else if (edificios.get(indiceEdificio) instanceof Hospital) {
 			cantVigilantes = edificios.get(indiceEdificio).getSuperficie() / 1000;
@@ -49,35 +54,17 @@ public class Edificio {
 			System.out.println("Se necesitan " + cantVigilantes + " vigilantes y el coste mensual es de "
 					+ (cantVigilantes * 1300) + "€");
 		}
-		/*
-		 * Si es hotel u hospital. Dividir el total de la superficie entre 1000 (Esta
-		 * operacion da la cantidad de vigilantes necesrios). Añadir a los vigilantes de
-		 * hoteles un puls de peligrosidad de 500Euros
-		 */
-
-		/*
-		 * Si es un cine. Dividir el total de la superficie entre 3000 (Esta operacion
-		 * da la cantidad de vigilantes necesrios)
-		 */
-
-		/*
-		 * Para el coste mensual de los vigilantes multiplicar la cantidad de vigilantes
-		 * por 1300Euros
-		 */
 	}
 
-	public int buscarEdificio(ArrayList<? extends Edificio> edificios) {
+	public int buscarEdificio(ArrayList<? extends Edificio> edificios, String edificioConsulta) {
 		boolean encontrado = false;
-		String edificioConsultado, edificioActual;
+		String edificioActual;
 		int indice = -1;
 		int i = 0;
 
-		System.out.print("Nombre del edificio a consultar: ");
-		edificioConsultado = pedirTexto();
-
 		while (!encontrado && i < edificios.size()) {
 			edificioActual = edificios.get(i).getNombre();
-			if (edificioActual.equalsIgnoreCase(edificioConsultado)) {
+			if (edificioActual.equalsIgnoreCase(edificioConsulta)) {
 				indice = i;
 				encontrado = true;
 			}
@@ -86,12 +73,13 @@ public class Edificio {
 		return indice;
 	}
 
-	public void limpiarEdificio(ArrayList<? extends Edificio> edificios, int indiceEdificio) {
-		int tiempoPorM2;
-		int tiempoPorPlanta;
-		int totalTiempoLimpieza;
-		int costePorMinuto;
-		int costePorMes;
+	public void limpiarEdificio(ArrayList<? extends Edificio> edificios) {
+		int tiempoPorM2, tiempoPorPlanta, totalTiempoLimpieza, costePorMinuto, costePorMes;
+
+		System.out.print("Nombre del edificio que deseas conocer el coste de limpieza: ");
+		String consultaEdificio = pedirTexto();
+
+		int indiceEdificio = buscarEdificio(edificios, consultaEdificio);
 
 		if (indiceEdificio == -1) {
 			System.err.println("¡El edificio ingresado no existe!");

@@ -19,21 +19,12 @@ public class MainEdificio {
 
 		ArrayList<Hospital> hospitales = new ArrayList<Hospital>();
 		Hospital hospital = new Hospital(null, 0, 0, 0);
-		int indiceEdificio;
 
 		hospitales = hospital.crearHospital();
-
-		/*indiceEdificio = hospital.buscarEdificio(hospitales);
-		hospital.limpiarEdificio(hospitales, indiceEdificio);
-
-		indiceEdificio = hospital.buscarEdificio(hospitales);
-		hospital.repartirAlmuerzo(hospitales, indiceEdificio);
-
-		indiceEdificio = hospital.buscarEdificio(hospitales);
-		hospital.eliminarHospital(hospitales, indiceEdificio);*/
-
-		indiceEdificio = hospital.buscarEdificio(hospitales);
-		hospital.consultarCostVigilancia(hospitales, indiceEdificio);
+		hospital.limpiarEdificio(hospitales);
+		hospital.repartirAlmuerzo(hospitales);
+		hospital.consultarCostVigilancia(hospitales);
+		hospital.eliminarHospital(hospitales);
 
 		// Instacia clase Cine
 		/*
