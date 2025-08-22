@@ -9,6 +9,9 @@ public class Hotel extends Edificio {
 	public Hotel(String nombre, int numPlantas, int superficie, int numHabitaciones) {
 		super(nombre, numPlantas, superficie);
 		this.numHabitaciones = numHabitaciones;
+	}
+
+	public Hotel() {
 
 	}
 
@@ -35,42 +38,18 @@ public class Hotel extends Edificio {
 		return hoteles;
 	}
 
-	public int buscarHotel(ArrayList<Hotel> hoteles, String nomHotel) {
-		boolean encontrado = false;
-		int indice = 0;
-		int i = 0;
-
-		while (!encontrado && i < hoteles.size()) {
-			if (hoteles.get(i).getNombre().equalsIgnoreCase(nomHotel)) {
-				indice = i;
-				encontrado = true;
-			} else {
-				indice = -1;
-			}
-			i++;
-		}
-		return indice;
-	}
-
 	public void eliminarHotel(ArrayList<Hotel> hoteles) {
 
-		System.out.print("\n" + "Nombre del hotel que deseas borrar: ");
-		String nomHotel = pedirTexto();
+		System.out.print("Nombre del hotel que deseas eliminar: ");
+		String edificioConsulta = pedirTexto();
 
-		int indiceHotel = buscarHotel(hoteles, nomHotel);
+		int indiceHotel = buscarEdificio(hoteles, edificioConsulta);
 
 		if (indiceHotel == -1) {
-			System.err.println("El hotel " + nomHotel + " no existe!");
+			System.err.println(("¡El hotel ingresado no existe!"));
 		} else {
 			hoteles.remove(indiceHotel);
-			System.out.println("Se elimino el hotel " + nomHotel + "\n");
-		}
-	}
-
-	public void mostrarHotel(ArrayList<Hotel> hotels) {
-		System.out.println("---Listado de hoteles---");
-		for (Hotel hotel : hotels) {
-			System.out.println("Nombre hotel: " + hotel.getNombre());
+			System.out.println("Se eliminó el hotel " + edificioConsulta + "\n");
 		}
 	}
 
@@ -79,13 +58,15 @@ public class Hotel extends Edificio {
 		double total = 0;
 		double sueldo = 1000;
 
-		System.out.print("\n" + "Consultar servicio de habitaciones: ");
-		String nomHotel = pedirTexto();
+		System.out.print("Nombre del hotel que deseas conocer el servicio de habitaciones: ");
+		String edificioConsulta = pedirTexto();
 
-		int indiceHotel = buscarHotel(hoteles, nomHotel);
+		int indiceHotel = buscarEdificio(hoteles, edificioConsulta);
 
 		personasNecesarias = hoteles.get(indiceHotel).numHabitaciones / 20;
-		if (personasNecesarias < 1) {
+		if (indiceHotel == -1) {
+			System.err.println(("¡El hospital ingresado no existe!"));
+		} else if (personasNecesarias < 1) {
 			personasNecesarias = 1;
 			total = personasNecesarias * sueldo;
 		} else {
@@ -94,6 +75,6 @@ public class Hotel extends Edificio {
 
 		System.out.println("Se necesita " + personasNecesarias
 				+ " personas para atender el servicio y tiene un costo de : " + total);
-	}
 
+	}
 }

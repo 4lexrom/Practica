@@ -17,77 +17,53 @@ public class Cine extends Edificio {
 		super(nombre, numPlantas, superficie);
 	}
 
-	public ArrayList<Cine> crearEdificioCine() {
+	public Cine() {
+
+	}
+
+	public ArrayList<Cine> crearCine() {
 		ArrayList<Cine> cines = new ArrayList<Cine>();
 		int cantCines, numPlantas, superficie;
-		String nombreCine;
+		String nombre;
 
 		System.out.print("Numero de cines a crear: ");
 		cantCines = pedirNumero();
 		for (int i = 0; i < cantCines; i++) {
 			System.out.println("..::Cine " + (i + 1) + "::..");
 			System.out.print("Nombre del cine: ");
-			nombreCine = pedirTexto();
+			nombre = pedirTexto();
 			System.out.print("Numero de plantas: ");
 			numPlantas = pedirNumero();
 			System.out.print("Superficie: ");
 			superficie = pedirNumero();
-			/*
-			 * System.out.print("Precio entrada: "); precioEntrada = pedirNumero();
-			 * System.out.print("Numero de asistentes: "); numAsistentes = pedirNumero();
-			 */
-			cines.add(new Cine(nombreCine, numPlantas, superficie/* , precioEntrada, numAsistentes */));
+			cines.add(new Cine(nombre, numPlantas, superficie));
 		}
 		return cines;
 	}
 
-	public int buscarCine(ArrayList<Cine> cines, String nombreCine) {
-		boolean encontrado = false;
-		int i = 0;
-		int indice = -1;
-
-		while (!encontrado && i < cines.size()) {
-			if (cines.get(i).getNombre().equalsIgnoreCase(nombreCine)) {
-				indice = i;
-				encontrado = true;
-			}
-			i++;
-		}
-		return indice;
-	}
-
 	public void eliminarCine(ArrayList<Cine> cines) {
 
-		System.out.print("Nombre del cine que deseas borrar: ");
-		String nombreCine = pedirTexto();
+		System.out.print("Nombre del cine que deseas eliminar: ");
+		String edificioConsulta = pedirTexto();
 
-		int indiceCine = buscarCine(cines, nombreCine);
+		int indiceCine = buscarEdificio(cines, edificioConsulta);
 
 		if (indiceCine == -1) {
-			System.err.println("El Cine " + nombreCine + " no existe!");
+			System.err.println(("¡El cine ingresado no existe!"));
 		} else {
-			System.out.println("Se eliminó el Cine " + nombreCine);
+			System.out.println("Se eliminó el Cine " + edificioConsulta);
 			cines.remove(indiceCine);
 		}
-		mostrarCines(cines);
-
 	}
 
-	public void mostrarCines(ArrayList<Cine> cines) {
-		System.out.println("---Listado de cines---");
-		for (Cine cine : cines) {
-			System.out.println("Cine: " + cine.getNombre());
-		}
-	}
-
-	public void proyectarSession(int numAsistentes, double precioEntrada) {
+	public void proyectarSession(int indiceCine, ArrayList<Cine> cines, int numAsistentes, double precioEntrada) {
 		double totalRecaudo;
 
 		if (numAsistentes > 100) {
-			System.out.println("Se supera el aforo maximo permitido");
+			System.out.println("Supera el aforo máximo permitido");
 		} else {
 			totalRecaudo = precioEntrada * numAsistentes;
-			System.out.println("Se han recaudado " + totalRecaudo + " euros");
+			System.out.println("El cine " + cines.get(indiceCine).getNombre() + " recaudó " + totalRecaudo + "€");
 		}
 	}
 

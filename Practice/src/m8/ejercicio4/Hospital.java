@@ -4,14 +4,18 @@ import java.util.ArrayList;
 
 public class Hospital extends Edificio {
 
-	private final int RACIONES;
+	private final int RACIONES = 3;
 	private int numEnfermos;
 
 	// ¿Por que no me perite crear un constructor vacio?
 	public Hospital(String nombre, int numPlantas, int superficie, int numEnfermos) {
 		super(nombre, numPlantas, superficie);
-		RACIONES = 3;
+		// RACIONES = 3;
 		this.numEnfermos = numEnfermos;
+	}
+
+	public Hospital() {
+
 	}
 
 	public ArrayList<Hospital> crearHospital() {
@@ -37,13 +41,6 @@ public class Hospital extends Edificio {
 		return hospitales;
 	}
 
-	public void mostrarHospital(ArrayList<Hospital> hospitales) {
-		System.out.println("\t-----Listado de hospitales-----");
-		for (Hospital hospital : hospitales) {
-			System.out.println("-" + "Hospital: " + hospital.getNombre());
-		}
-	}
-
 	public void eliminarHospital(ArrayList<Hospital> hospitales) {
 
 		System.out.print("Nombre del hospital que deseas eliminar: ");
@@ -57,7 +54,6 @@ public class Hospital extends Edificio {
 			System.out.println("Se eliminó el hospital " + hospitales.get(indiceHospital).getNombre());
 			hospitales.remove(indiceHospital);
 		}
-		mostrarHospital(hospitales);
 	}
 
 	public void repartirAlmuerzo(ArrayList<Hospital> hospitales) {

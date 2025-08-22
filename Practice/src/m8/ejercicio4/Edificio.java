@@ -14,6 +14,10 @@ public class Edificio {
 		this.superficie = superficie;
 	}
 
+	public Edificio() {
+
+	}
+
 	public int pedirNumero() {
 		Scanner entrada = new Scanner(System.in);
 		int numero;
@@ -74,7 +78,7 @@ public class Edificio {
 	}
 
 	public void limpiarEdificio(ArrayList<? extends Edificio> edificios) {
-		int tiempoPorM2, tiempoPorPlanta, totalTiempoLimpieza, costePorMinuto, costePorMes;
+		int tiempoPorM2, tiempoPorPlanta, horas, minutos, costePorMinuto, costePorMes, totalTiempoLimpieza;
 
 		System.out.print("Nombre del edificio que deseas conocer el coste de limpieza: ");
 		String consultaEdificio = pedirTexto();
@@ -86,12 +90,21 @@ public class Edificio {
 		} else {
 			tiempoPorM2 = (int) Math.ceil(edificios.get(indiceEdificio).getSuperficie() / 5); // Devuelve Minutos
 			tiempoPorPlanta = (edificios.get(indiceEdificio).getNumPlantas() * 30) / 60; // Devuelve Minutos
-			totalTiempoLimpieza = tiempoPorM2 + tiempoPorPlanta; // Devuelve Minutos
+			totalTiempoLimpieza = (tiempoPorM2 + tiempoPorPlanta); // Devuelve minutos
+			horas = totalTiempoLimpieza / 60; // Devuelve en horas
+			minutos = horas % 60; // Devuelve en minutos
 			costePorMinuto = totalTiempoLimpieza * 1; // coste por minuto de trabajo
 			costePorMes = costePorMinuto * 30; // Coste mensual
 
-			System.out.println("Se necesita " + totalTiempoLimpieza + "Min. para hacer limpieza en el edifico "
+			System.out.println("Se necesita " + horas + ":" + minutos + "Min. para hacer limpieza en el edifico "
 					+ edificios.get(indiceEdificio).getNombre() + " y tiene coste mensual de " + costePorMes + "€");
+		}
+	}
+
+	public void mostrarDatosEdificios(ArrayList<? extends Edificio> edificios) {
+		for (Edificio edificio : edificios) {
+			System.out.println("El edificio " + edificio.getNombre() + " tiene " + edificio.getNumPlantas()
+					+ " plantas " + " y una superficie de " + edificio.getSuperficie() + "m2");
 		}
 	}
 
