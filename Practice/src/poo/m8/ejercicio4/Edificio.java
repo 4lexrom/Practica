@@ -5,6 +5,10 @@ import java.util.Scanner;
 
 public abstract class Edificio {
 
+	private final int PLUS_PELIGROSIDAD = 500;
+	private final int SALARIO_BASE = 1300;
+	private final double SUPERFICIE_MINIMA = 1000;
+	private final double SUPERFICIE_MAXIMA = 3000;
 	private String nombre;
 	private int numPlantas;
 	private int superficie;
@@ -21,12 +25,12 @@ public abstract class Edificio {
 
 	}
 
-	public abstract List<Edificio> crearEdificio();
+	public abstract Edificio crearEdificio();
 
-	public abstract void mostrarEdificio(List<Edificio> edificios);
+	public abstract void verInformacion(List<Edificio> edificios);
 
 	public void limpiarEdificio(List<Edificio> edificios) {
-		int tiempoPorM2, tiempoPorPlanta, TotalTiempo, horas, minutos;
+		int tiempoPorM2, tiempoPorPlanta, TotalTiempoEnMinutos, horas, minutos;
 		double costePorMinuto, costeMes;
 
 		textoDescriptivo("\tConsultar datos de limpieza de un edificio " + "\n");
@@ -41,23 +45,24 @@ public abstract class Edificio {
 
 			tiempoPorM2 = superficie / 5;
 			tiempoPorPlanta = numPlantas * 30;
-			TotalTiempo = tiempoPorPlanta + tiempoPorM2;
-			horas = TotalTiempo / 60;
-			minutos = horas % 60;
-			costePorMinuto = TotalTiempo * 1;
+			TotalTiempoEnMinutos = tiempoPorPlanta + tiempoPorM2;
+			horas = TotalTiempoEnMinutos / 60;
+			minutos = TotalTiempoEnMinutos % 60;
+			costePorMinuto = TotalTiempoEnMinutos * 1;
 			costeMes = costePorMinuto * 30;
 			textoDescriptivo("El tiempo para servicio de limpieza del edificio " + consultaEdificio + " es de " + horas
-					+ "Hrs con " + minutos + "Min," + " y tiene un coste mensual de " + costeMes + "€\n");
+					+ "Hrs y " + minutos + "Min," + " y tiene un coste mensual de " + costeMes + "€\n");
 		} else {
 			System.err.println("¡El edificio " + consultaEdificio + " No existe!");
 		}
 	}
 
 	public void calcularCosteVigilancia(List<Edificio> edificios) {
-		double costeTotalMes;
+		double costeTotalVigilanciaMes = 0;
+		double costePlusPligrosidad;
+		double CosteSalarios;
 		int cantVigilantes;
-		final int PLUS_PELIGROSIDAD = 500;
-		final int SALARIO_BASE = 1300;
+		double calcularSuperficie;
 
 		textoDescriptivo("\tConsultar datos de vigilancia de un edificio " + "\n");
 		textoDescriptivo("Nombre del edificio: ");
@@ -74,19 +79,22 @@ public abstract class Edificio {
 		int superficie = edificio.getSuperficie();
 
 		if (edificio instanceof Hospital || edificio instanceof Hotel) {
-			cantVigilantes = (int) Math.ceil(superficie / 1000);
-			costeTotalMes = cantVigilantes * SALARIO_BASE;
+			calcularSuperficie = superficie / SUPERFICIE_MINIMA;
+			cantVigilantes = (int) Math.ceil(calcularSuperficie);
+			CosteSalarios = cantVigilantes * SALARIO_BASE;
 			if (edificio instanceof Hotel) {
-				costeTotalMes += PLUS_PELIGROSIDAD;
+				costePlusPligrosidad = cantVigilantes * PLUS_PELIGROSIDAD;	
+				costeTotalVigilanciaMes = CosteSalarios + costePlusPligrosidad;
 			}
 		} else {
-			cantVigilantes = superficie / 3000;
-			costeTotalMes = cantVigilantes * SALARIO_BASE;
+			calcularSuperficie = superficie / SUPERFICIE_MAXIMA;
+			cantVigilantes = (int) Math.ceil(calcularSuperficie);
+			costeTotalVigilanciaMes = cantVigilantes * SALARIO_BASE;
 		}
 
 		System.out.println(
 				"Se necesitan " + cantVigilantes + " personas para prestar el servico de vigilancia en el edificio "
-						+ consultaEdificio + ", el costo por mes es de " + costeTotalMes + "€");
+						+ consultaEdificio + ", el costo por mes es de " + costeTotalVigilanciaMes + "€");
 	}
 
 	protected void datosEnComun() {
@@ -109,18 +117,10 @@ public abstract class Edificio {
 
 		if (indice == -1) {
 			System.err.println("¡El edificio " + consultaEdificio + " No existe!" + "\n");
-		} else {
-			textoDescriptivo("Se eliminó el edificio " + consultaEdificio);
-			edificios.remove(indice);
+			return;
 		}
-	}
-
-	public void mostrarDatosComunes(List<Edificio> edificios) {
-		textoDescriptivo("\tInformacion del edificio" + "\n");
-		for (Edificio edificio : edificios) {
-			textoDescriptivo("El hospital " + edificio.getNombre() + " tiene " + edificio.getNumPlantas() + " plantas y "
-					+ " una superficie de " + edificio.getSuperficie() + "m2" + "\n");
-		}
+		textoDescriptivo("Se eliminó el edificio " + consultaEdificio + "\n");
+		edificios.remove(indice);
 	}
 
 	public int buscar(List<Edificio> edificios, String consultaEdificio) {
@@ -132,8 +132,8 @@ public abstract class Edificio {
 		while (!encontrado && i < edificios.size()) {
 			edificioActual = edificios.get(i).getNombre();
 			if (edificioActual.equalsIgnoreCase(consultaEdificio)) {
-				encontrado = true;
 				indice = i;
+				encontrado = true;
 			}
 			i++;
 		}

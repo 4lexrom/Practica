@@ -1,6 +1,5 @@
 package poo.m8.ejercicio4;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Hospital extends Edificio {
@@ -18,26 +17,48 @@ public class Hospital extends Edificio {
 	}
 
 	@Override
-	public List<Edificio> crearEdificio() {
-		List<Edificio> hospitales = new ArrayList<Edificio>();
+	public Hospital crearEdificio() {
+		int cantEnfermos;
 
-		textoDescriptivo("¿Cuantos hospitales vas a crear? ");
-		int cantHospitales = pedirNumero();
+		datosEnComun();
 
-		for (int i = 0; i < cantHospitales; i++) {
-			datosEnComun();
+		textoDescriptivo("Numero de enfermos: ");
+		cantEnfermos = pedirNumero();
 
-			textoDescriptivo("Numero de enfermos: ");
-			int cantEnfermos = pedirNumero();
+		Hospital hospital = new Hospital(getNombre(), getNumPlantas(), getSuperficie(), cantEnfermos);
 
-			hospitales.add(new Hospital(getNombre(), getNumPlantas(), getSuperficie(), cantEnfermos));
-		}
-		return hospitales;
+		return hospital;
 	}
 
-	public void mostrarEdificio(List<Edificio> edificios) {
-		mostrarDatosComunes(edificios);
-		textoDescriptivo("El hospital tiene " + this.cantEnfermos + "\n");
+	public void verInformacion(List<Edificio> edificios) {
+		for (Edificio edificio : edificios) {
+			Hospital h = (Hospital) edificio;
+			textoDescriptivo(
+					"El hospital " + h.getNombre() + " tiene " + h.getNumPlantas() + " plantas, una superficie de "
+							+ h.getSuperficie() + "m2 y tiene " + h.getCantEnfermos() + " enfermos" + "\n");
+		}
+	}
+
+	public void repartirAlmuerzo(List<Edificio> edificios) {
+		int cantRaciones = 0;
+
+		textoDescriptivo("\tConsultar cantidad de almuerzos repartidos " + "\n");
+		textoDescriptivo("Nombre del edificio: ");
+		String consultaEdificio = pedirTexto();
+
+		int indice = buscar(edificios, consultaEdificio);
+
+		Edificio edificio = edificios.get(indice);
+
+		if (indice == -1) {
+			System.err.println("¡El edificio " + consultaEdificio + " No existe!");
+			return;
+		}
+
+		Hospital hopsital = (Hospital) edificio;
+		cantRaciones = hopsital.getCantEnfermos() * CANT_RACIONES;
+
+		System.out.println("Se estan repartiendo " + cantRaciones + " raciones");
 	}
 
 	public int getCantEnfermos() {
