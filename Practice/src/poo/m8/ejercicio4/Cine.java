@@ -4,8 +4,8 @@ import java.util.List;
 
 public class Cine extends Edificio {
 
-	private final byte AFORO_MAXIMO = 100;
-	private byte numeroAsistentes;
+	private final int AFORO_MAXIMO = 100;
+	private int numeroAsistentes;
 	private double precioEntrada;
 
 	public Cine() {
@@ -21,21 +21,16 @@ public class Cine extends Edificio {
 		return cine;
 	}
 
-	public void verInformacion(List<Edificio> edificios) {
-		for (Edificio edificio : edificios) {
-			Cine cine = (Cine) edificio;
-			textoDescriptivo("El cine " + cine.getNombre() + " tiene " + cine.getNumPlantas()
-					+ " plantas, una superficie de " + cine.getSuperficie() + "m2" + "\n");
-
-		}
+	public void verInfoEdificio(List<Edificio> edificios) {
+		super.imprimirDatosEnComun();
 	}
 
-	public void proyectarSession(List<Edificio> edificios, byte numeroAsistentes, double precioEntrada) {
+	public void proyectarSession(List<Edificio> edificios, int numeroAsistentes, double precioEntrada) {
 		textoDescriptivo("\tConsultar informacion del cine " + "\n");
 		textoDescriptivo("Nombre del edificio: ");
-		String consultaEdificio = pedirTexto(); 
+		String consultaEdificio = pedirTexto();
 
-		int indice = buscar(edificios, consultaEdificio); 
+		int indice = buscar(edificios, consultaEdificio);
 
 		if (indice == -1) {
 			System.err.println("¡El cine " + consultaEdificio + " No existe!");
@@ -45,19 +40,24 @@ public class Cine extends Edificio {
 		if (numeroAsistentes > AFORO_MAXIMO) {
 			textoDescriptivo("¡El numero de asistentes supera el aforo máximo permitido!" + "\n");
 		} else {
-			Cine cine = (Cine) edificios.get(indice);
-			cine.setNumeroAsistentes(numeroAsistentes);
-			cine.setPrecioEntrada(precioEntrada);
-			double totalRecaudado = cine.getNumeroAsistentes() * cine.getPrecioEntrada();
-			textoDescriptivo("El cine " + cine.getNombre() + " recaudó " + totalRecaudado + "€" + "\n");
+			Edificio edificio = edificios.get(indice);
+			if (edificio instanceof Cine) {
+				Cine cine = (Cine) edificio;
+				cine.setNumeroAsistentes(numeroAsistentes);
+				cine.setPrecioEntrada(precioEntrada);
+				double totalRecaudado = cine.getNumeroAsistentes() * cine.getPrecioEntrada();
+				textoDescriptivo("El cine " + cine.getNombre() + " recaudó " + totalRecaudado + "€" + "\n");
+			} else {
+				System.err.println("¡El edificio " + consultaEdificio + " no es un cine!");
+			}
 		}
 	}
 
-	public byte getNumeroAsistentes() {
+	public int getNumeroAsistentes() {
 		return numeroAsistentes;
 	}
 
-	public void setNumeroAsistentes(byte numeroAsistentes) {
+	public void setNumeroAsistentes(int numeroAsistentes) {
 		this.numeroAsistentes = numeroAsistentes;
 	}
 

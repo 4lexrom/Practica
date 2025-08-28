@@ -30,12 +30,13 @@ public class Hospital extends Edificio {
 		return hospital;
 	}
 
-	public void verInformacion(List<Edificio> edificios) {
+	public void verInfoEdificio(List<Edificio> edificios) {
 		for (Edificio edificio : edificios) {
-			Hospital h = (Hospital) edificio;
-			textoDescriptivo(
-					"El hospital " + h.getNombre() + " tiene " + h.getNumPlantas() + " plantas, una superficie de "
-							+ h.getSuperficie() + "m2 y tiene " + h.getCantEnfermos() + " enfermos" + "\n");
+			if (edificio instanceof Hospital) {
+				Hospital h = (Hospital) edificio;
+				h.imprimirDatosEnComun();
+				textoDescriptivo("Tiene " + h.getCantEnfermos() + " enfermos" + "\n");
+			}
 		}
 	}
 
@@ -48,15 +49,15 @@ public class Hospital extends Edificio {
 
 		int indice = buscar(edificios, consultaEdificio);
 
-		Edificio edificio = edificios.get(indice);
-
 		if (indice == -1) {
 			System.err.println("¡El edificio " + consultaEdificio + " No existe!");
 			return;
 		}
 
-		Hospital hopsital = (Hospital) edificio;
-		cantRaciones = hopsital.getCantEnfermos() * CANT_RACIONES;
+		Edificio edificio = edificios.get(indice);
+		Hospital hospital = (Hospital) edificio;
+
+		cantRaciones = hospital.getCantEnfermos() * CANT_RACIONES;
 
 		System.out.println("Se estan repartiendo " + cantRaciones + " raciones");
 	}

@@ -27,7 +27,29 @@ public abstract class Edificio {
 
 	public abstract Edificio crearEdificio();
 
-	public abstract void verInformacion(List<Edificio> edificios);
+	public abstract void verInfoEdificio(List<Edificio> edificios);
+
+	public void imprimirDatosEnComun() {
+		textoDescriptivo(
+				"El edificio " + getNombre() + " de " + getSuperficie() + "m2 y " + getNumPlantas() + " plantas. ");
+	}
+
+	public void consultarEdificio(List<Edificio> edificios) {
+		textoDescriptivo("\tEscribir nombre del edificio a consultar" + "\n");
+		textoDescriptivo("Nombre del edificio: ");
+		String consultaEdificio = pedirTexto();
+
+		int indice = buscar(edificios, consultaEdificio);
+
+		if (indice == -1) {
+			System.err.println("¡El edificio " + consultaEdificio + " No existe!");
+			return;
+		}
+
+		Edificio edificio = edificios.get(indice);
+
+		textoDescriptivo("Nombre del edificio consultado: " + edificio.getNombre() + "\n");
+	}
 
 	public void limpiarEdificio(List<Edificio> edificios) {
 		int tiempoPorM2, tiempoPorPlanta, TotalTiempoEnMinutos, horas, minutos;
@@ -58,9 +80,8 @@ public abstract class Edificio {
 	}
 
 	public void calcularCosteVigilancia(List<Edificio> edificios) {
-		double costeTotalVigilanciaMes = 0;
-		double costePlusPligrosidad;
-		double CosteSalarios;
+		double costeTotalVigilanciaMes;
+		double costePlusPeligrosidad;
 		int cantVigilantes;
 		double calcularSuperficie;
 
@@ -81,10 +102,10 @@ public abstract class Edificio {
 		if (edificio instanceof Hospital || edificio instanceof Hotel) {
 			calcularSuperficie = superficie / SUPERFICIE_MINIMA;
 			cantVigilantes = (int) Math.ceil(calcularSuperficie);
-			CosteSalarios = cantVigilantes * SALARIO_BASE;
+			costeTotalVigilanciaMes = cantVigilantes * SALARIO_BASE;
 			if (edificio instanceof Hotel) {
-				costePlusPligrosidad = cantVigilantes * PLUS_PELIGROSIDAD;	
-				costeTotalVigilanciaMes = CosteSalarios + costePlusPligrosidad;
+				costePlusPeligrosidad = cantVigilantes * PLUS_PELIGROSIDAD;
+				costeTotalVigilanciaMes += costePlusPeligrosidad;
 			}
 		} else {
 			calcularSuperficie = superficie / SUPERFICIE_MAXIMA;

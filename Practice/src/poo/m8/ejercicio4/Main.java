@@ -17,7 +17,7 @@ public class Main {
 
 	public static void opciones() {
 		List<Edificio> edificios = new ArrayList<Edificio>();
-
+		GestorEdificios gestor = new GestorEdificios();
 		Hospital hospital = new Hospital();
 		Cine cine = new Cine();
 		Hotel hotel = new Hotel();
@@ -34,48 +34,13 @@ public class Main {
 				salir = true;
 				break;
 			case 1:
-				Hospital h;
-
-				h = hospital.crearEdificio();
-				edificios.add(h);
-
-				hospital.calcularCosteVigilancia(edificios);
-				hospital.limpiarEdificio(edificios);
-				hospital.repartirAlmuerzo(edificios);
-				hospital.eliminarEdificio(edificios);
-				hospital.verInformacion(edificios);
+				gestor.gestionarHospital(hospital, edificios);
 				break;
 			case 2:
-				byte numAsistentes;
-				double precioEntrada;
-				Cine c;
-
-				c = cine.crearEdificio();
-				edificios.add(c);
-
-				cine.textoDescriptivo("Cantidad de asistentes: ");
-				numAsistentes = (byte) cine.pedirNumero();
-
-				cine.textoDescriptivo("Precio entrada: ");
-				precioEntrada = cine.pedirNumero();
-
-				cine.proyectarSession(edificios, numAsistentes, precioEntrada);
-				cine.calcularCosteVigilancia(edificios);
-				cine.limpiarEdificio(edificios);
-				cine.verInformacion(edificios);
-				cine.eliminarEdificio(edificios);
+				gestor.gestionarCine(cine, edificios);
 				break;
 			case 3:
-				Hotel htl;
-
-				htl = hotel.crearEdificio();
-				edificios.add(htl);
-
-				hotel.calcularCosteVigilancia(edificios);
-				hotel.limpiarEdificio(edificios);
-				hotel.calcularServHabitaciones();
-				hotel.eliminarEdificio(edificios);
-				//hotel.verInformacion(edificios);
+				gestor.gestionarHotel(hotel, edificios);
 				break;
 			default:
 				break;

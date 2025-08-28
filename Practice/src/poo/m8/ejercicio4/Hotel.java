@@ -39,8 +39,14 @@ public class Hotel extends Edificio {
 		return hotel;
 	}
 
-	public void verInformacion(List<Edificio> edificios) {
-
+	public void verInfoEdificio(List<Edificio> edificios) {
+		for (Edificio edificio : edificios) {
+			if (edificio instanceof Hotel) {
+				Hotel h = (Hotel) edificio;
+				h.imprimirDatosEnComun();
+				textoDescriptivo("Tiene " + h.getCantHabitaciones() + " habitaciones" + "\n");
+			}
+		}
 	}
 
 	public int getCantHabitaciones() {
