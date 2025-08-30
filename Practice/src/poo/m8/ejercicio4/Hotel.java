@@ -5,7 +5,6 @@ import java.util.List;
 public class Hotel extends Edificio {
 
 	private final double CANT_HABTCION_POR_PERSONA = 20;
-	private final double SALARIO = 1000;
 	private int cantHabitaciones;
 
 	public Hotel() {
@@ -24,10 +23,21 @@ public class Hotel extends Edificio {
 
 		calcularPerNecesarias = this.cantHabitaciones / CANT_HABTCION_POR_PERSONA;
 		numPersonas = Math.ceil(calcularPerNecesarias);
-		totalSalario = numPersonas * SALARIO;
+		totalSalario = numPersonas * 1000;
 		System.out.println("\tInformacion del servicio de habitaciones");
 		textoDescriptivo("Son necesarias " + (int) numPersonas + " personas y el total a pagar en sueldos es de "
 				+ totalSalario + "€" + "\n");
+	}
+
+	public int calcularCantidadVigilantes() {
+		int cantVigilantes = super.getSuperficie() / 1000;
+		return cantVigilantes;
+	}
+
+	public double calcularCosteVigilantes() {
+		double plusPeligrosidad = calcularCantidadVigilantes() * 500;
+		double costeVigilanacia = ((calcularCantidadVigilantes() * 1300) + plusPeligrosidad);
+		return costeVigilanacia;
 	}
 
 	public Hotel crearEdificio() {

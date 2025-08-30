@@ -40,6 +40,16 @@ public class Hospital extends Edificio {
 		}
 	}
 
+	public int calcularCantidadVigilantes() {
+		int cantVigilantes = super.getSuperficie() / 1000;
+		return cantVigilantes;
+	}
+
+	public double calcularCosteVigilantes() {
+		double costeVigilanacia = calcularCantidadVigilantes() * 1300;
+		return costeVigilanacia;
+	}
+
 	public void repartirAlmuerzo(List<Edificio> edificios) {
 		int cantRaciones = 0;
 

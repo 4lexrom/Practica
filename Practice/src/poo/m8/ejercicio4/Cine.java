@@ -23,6 +23,17 @@ public class Cine extends Edificio {
 
 	public void verInfoEdificio(List<Edificio> edificios) {
 		super.imprimirDatosEnComun();
+		System.out.println();
+	}
+
+	public int calcularCantidadVigilantes() {
+		int cantVigilantes = super.getSuperficie() / 3000;
+		return cantVigilantes;
+	}
+
+	public double calcularCosteVigilantes() {
+		double costeVigilanacia = (calcularCantidadVigilantes() * 1300);
+		return costeVigilanacia;
 	}
 
 	public void proyectarSession(List<Edificio> edificios, int numeroAsistentes, double precioEntrada) {
